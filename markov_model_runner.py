@@ -158,6 +158,10 @@ def run_and_stat(emission_df, transition_df, start_state, generator, pos_vals=No
         # print(predicted_states)
         lbl_str = ''
         for l, c in zip(lbl, seq):
+            if c == 'N':
+                continue
+            if c == 'None':
+                continue
             lbl_str += l
         lbl_str += 'E'
         # print(lbl_str)
@@ -205,4 +209,4 @@ if __name__ == '__main__':
 
 
     gene_gen = getSeq('./hg19.genes.NR.chr19.exonCount2_29.bed', './hg19.2bit')
-    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=1500)
+    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'])

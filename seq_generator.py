@@ -6,7 +6,7 @@ import numpy as np
 # GENE_TSV_HEADER = ['name', 'chrom', 'strand', 'txStart', 'txEnd', 'cdsStart', 'cdsEnd', 'exonCount', 'exonStarts', 'exonEnds', 'proteinId', 'alignID']
 GENE_TSV_HEADER = ['chrom', 'startTranscription', 'endTranscription', 'name', 'unimportant', 'strand', 'startTranslation', 'endTranslation', 'unimportant2', 'exonCount', 'exonSize', 'exonStart']
 
-REVERSE_COMPLEMENT_MAP = {"A": "T", "T": "A", "C": "G", "G": "C"}
+REVERSE_COMPLEMENT_MAP = {"A": "T", "T": "A", "C": "G", "G": "C", "N": "N"}
 
 
 def getSeq(gene_tsv_path, twobitpath):
@@ -16,7 +16,6 @@ def getSeq(gene_tsv_path, twobitpath):
         seq = genome_reader[gene['chrom']][int(gene['startTranscription']):int(gene['endTranscription'])]
         seq = seq.upper()
         seq = np.array(list(seq))
-
         if gene['strand'] == '-':
             seq = np.flip(seq)
             seq = np.vectorize(REVERSE_COMPLEMENT_MAP.get)(seq)

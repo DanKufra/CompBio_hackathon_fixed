@@ -15,10 +15,13 @@ if __name__ == '__main__':
         tmp_df = tmp_df.rename(columns={'name': 'name', 'state':'state', l: 'count', 'letter': 'letter'})
         new_df = new_df.append(tmp_df)
 
-    # g = sns.FacetGrid(new_df, col="state", hue='letter')
-    # g = g.map(plt.hist, "count", histtype='barstacked', bins=np.arange(0, 4000, 50))
-    # g.add_legend()
-    # plt.show()
+    sns.distplot(np.sum(emission_stats_df[['A', 'C', 'G', 'T']], axis=1),)
+    # plt.hist(np.sum(emission_stats_df[['A', 'C', 'G', 'T']], axis=1), bins=100)
+    plt.show()
+    g = sns.FacetGrid(new_df, col="state", hue='letter')
+    g = g.map(plt.hist, "count", histtype='barstacked', bins=np.arange(0, 4000, 50))
+    g.add_legend()
+    plt.show()
 
     # Intron emissions
     intron_emissions = emission_stats_df[emission_stats_df['state'] == 'I'][['A', 'C', 'G', 'T']]
