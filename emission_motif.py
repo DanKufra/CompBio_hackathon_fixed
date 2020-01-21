@@ -1,6 +1,10 @@
 import numpy as np
 import csv
 
+STATES = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s"
+    ,"t","u","v","w","x","y","z","A","B","C","D","H","I","J","K","L","M","N","O","P",
+          "Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9",
+          "{","}","_","-","[","]","(",")"]
 ABC = ['A','C','G','T','^']
 M_E = [0.21692973973638763, 0.30088008759486623, 0.2920972724433625, 0.1900929002253837]
 I_E = [0.2372296613851884, 0.2456412115178716, 0.25376575262676015, 0.2633633744701799]
@@ -72,7 +76,7 @@ def create_emiss(start_m, middle_m, end_m, start_i, middle_i, end_i, abc = ABC):
     states[-1] = "end"
     my_e[-1,-1] = 1.
 
-
+    states = STATES[:states_num]
     with open('emi.tsv', 'wt') as out_file:
         tsv_writer = csv.writer(out_file, delimiter=' ')
         tsv_writer.writerow(['index']+list(abc))
