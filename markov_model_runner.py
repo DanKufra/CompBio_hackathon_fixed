@@ -55,6 +55,8 @@ def run_viterbi(markov_model, seq, emission_array, state_array, blocks=False):
         else:
             if letter == 'N':
                 continue
+            if letter == 'None':
+                continue
             mutable_seq.append(letter[0].upper())
     mutable_seq = mutable_seq.toseq()
 
@@ -91,6 +93,7 @@ def calc_statistics(transition_df, pred, lbl, pos_vals=None, neg_vals=None, i=No
     # get confusion matrix of preds vs labels (Multiclass)
     confusion = confusion_matrix(lbl, pred, labels=transition_df.columns)
     return overall_accuracy, TPR, TNR, confusion
+
 
 def map_block_to_emission(block, blocks):
     new_emission = ''
@@ -137,7 +140,7 @@ def run_on_blocks():
         for block in range(0, len(seq), 3):
             cur_block, cur_unicode_block_idx = map_block_to_emission(seq[block: block + 3].tolist(), np.array(blocks))
             seq_mapped.append(unicode_blocks[cur_unicode_block_idx])
-        predicted_states, prob  = run_viterbi(mm, seq_mapped, emission_df.columns, transition_df.columns, blocks=True)
+        predicted_states, prob = run_viterbi(mm, seq_mapped, emission_df.columns, transition_df.columns, blocks=True)
         print(predicted_states)
 
 
@@ -202,4 +205,4 @@ if __name__ == '__main__':
 
 
     gene_gen = getSeq('./hg19.genes.NR.chr19.exonCount2_29.bed', './hg19.2bit')
-    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=150)
+    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=1500)
