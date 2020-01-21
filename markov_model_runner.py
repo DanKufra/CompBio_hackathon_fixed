@@ -191,7 +191,7 @@ def run_and_stat(emission_df, transition_df, start_state, generator, pos_vals=No
     # ax = sns.heatmap(confusion_matrix, annot=True, cbar=False)
     # plt.show()
     plot_confusion_matrix_from_data(lbl_arr, pred_arr, transition_df.columns, True,
-                                    'Oranges', '.3f', 12, 0.5, False, [9, 9], 2, 'y')
+                                    'Oranges', '.3f', 12, 0.5, False, [9, 9], 2, 'y', confusion=total_confusion)
 
 
 if __name__ == '__main__':

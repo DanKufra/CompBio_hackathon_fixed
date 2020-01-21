@@ -220,7 +220,7 @@ def pretty_plot_confusion_matrix(df_cm, annot=True, cmap="Oranges", fmt='.2f', f
 
 def plot_confusion_matrix_from_data(y_test, predictions, columns=None, annot=True, cmap="Oranges",
                                     fmt='.2f', fz=11, lw=0.5, cbar=False, figsize=[8, 8], show_null_values=0,
-                                    pred_val_axis='lin'):
+                                    pred_val_axis='lin', confusion=None):
     """
         plot confusion matrix function with y_test (actual values) and predictions (predic),
         whitout a confusion matrix yet
@@ -236,7 +236,10 @@ def plot_confusion_matrix_from_data(y_test, predictions, columns=None, annot=Tru
         from string import ascii_uppercase
         columns = ['class %s' % (i) for i in list(ascii_uppercase)[0:len(np.unique(y_test))]]
 
-    confm = confusion_matrix(y_test, predictions, labels=columns)
+    if confusion is None:
+        confm = confusion_matrix(y_test, predictions, labels=columns)
+    else:
+        confm = confusion
     cmap = 'Oranges';
     fz = 11;
     figsize = [9, 9];
