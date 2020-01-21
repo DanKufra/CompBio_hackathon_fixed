@@ -11,6 +11,7 @@ from tqdm import tqdm
 from sklearn.metrics import confusion_matrix
 from confusion_matrix_pretty_print import plot_confusion_matrix_from_data
 
+
 def build_mm(emission_df, transition_df, start_state):
     state_alphabet = Alphabet.Alphabet()
     state_alphabet.letters = transition_df.columns
@@ -201,4 +202,4 @@ if __name__ == '__main__':
 
 
     gene_gen = getSeq('./hg19.genes.NR.chr19.exonCount2_29.bed', './hg19.2bit')
-    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=10)
+    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=150)
