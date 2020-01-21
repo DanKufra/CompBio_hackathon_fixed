@@ -9,6 +9,7 @@ from Bio.Seq import MutableSeq
 from seq_generator import getSeq
 from tqdm import tqdm
 from sklearn.metrics import confusion_matrix
+from confusion_matrix_pretty_print import plot_confusion_matrix_from_data
 
 
 def build_mm(emission_df, transition_df, start_state):
@@ -178,11 +179,19 @@ def run_and_stat(emission_df, transition_df, start_state, generator, pos_vals=No
     tpr_arr = np.array(tpr_arr)
     tnr_arr = np.array(tnr_arr)
     print(acc_arr.mean(), tpr_arr.mean(), tnr_arr.mean())
-    # print(np.round(total_confusion / np.sum(total_confusion, axis=1), decimals=4))
-    normalized_confusion = total_confusion / np.sum(total_confusion, axis=1)
-    confusion_matrix = pd.DataFrame(normalized_confusion, columns=transition_df.columns)
-    ax = sns.heatmap(confusion_matrix, annot=True, cbar=False)
-    plt.show()
+    # print(total_confusion[0])
+    # print(np.sum(total_confusion, axis=1)[0])
+    # print(np.sum(total_confusion, axis=0)[0])
+    # # print(np.round(total_confusion / np.sum(total_confusion, axis=1), decimals=4))
+    # normalized_confusion = total_confusion / np.sum(total_confusion, axis=1)
+    # print(normalized_confusion)
+    # # y is label
+    # # x is pred
+    # confusion_matrix = pd.DataFrame(normalized_confusion, columns=transition_df.columns)
+    # ax = sns.heatmap(confusion_matrix, annot=True, cbar=False)
+    # plt.show()
+    plot_confusion_matrix_from_data(lbl_arr, pred_arr, transition_df.columns, True,
+                                    'Oranges', '.3f', 12, 0.5, False, [9, 9], 2, 'y', confusion=total_confusion)
 
 
 if __name__ == '__main__':
@@ -193,4 +202,4 @@ if __name__ == '__main__':
 
 
     gene_gen = getSeq('./hg19.genes.NR.chr19.exonCount2_29.bed', './hg19.2bit')
-    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=10)
+    run_and_stat(emission_df, transition_df, 'F', gene_gen,  ['F', 'M', 'L'], ['I'], max_amnt=150)
