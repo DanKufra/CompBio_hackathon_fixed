@@ -1,0 +1,4 @@
+1. Intron sizes are a lot bigger, but naive emissions for first and last exons are the same as introns.
+   So will be hard to "catch" first and last exons because we will prefer to move to intron very fast.
+
+2.
